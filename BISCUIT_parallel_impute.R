@@ -17,7 +17,8 @@
 ##################
 
 
-
+#X_std_all <- X_c_all;
+X_std_all <- X_all;
 
 final_num_K <- length(unique(z_inferred_final));
 final_K <- unique(z_inferred_final)
