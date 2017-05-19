@@ -193,7 +193,7 @@ X_tsne_all <- Rtsne(X_all,check_duplicates = FALSE);
 
 
 ## plotting standardised X
-X_std_all <- project.data(X_all,D);
+#X_std_all <- project.data(X_all,D);
 
 
 ##Global normalised data
@@ -202,5 +202,5 @@ log_lib_size <- rowSums(X_all);
 X_all_global_norm <- X_all/log_lib_size;
 X_tsne_all_global_norm <- Rtsne(X_all_global_norm,check_duplicates = FALSE);
 
-rm(X_all)
+#rm(X_all)
 
