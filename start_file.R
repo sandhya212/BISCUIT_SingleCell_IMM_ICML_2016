@@ -54,7 +54,7 @@ gene_batch <- 20; #number of genes per batch, therefore num_batches = choose_gen
 
 num_iter <- 10; #number of iterations, choose based on data size.
 
-num_cores <- detectCores() - 4; #number of cores for parallel processing. Ensure that detectCores() > 1 for parallel processing to work, else set num_cores to 1.
+num_cores <- detectCores() - 1; #number of cores for parallel processing. Ensure that detectCores() > 1 for parallel processing to work, else set num_cores to 1.
 
 z_true_labels_avl <- TRUE; #set this to TRUE if the true labels of cells are available, else set it to FALSE. If TRUE, ensure to populate 'z_true' with the true labels in 'BISCUIT_process_data.R'
 
