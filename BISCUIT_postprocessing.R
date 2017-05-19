@@ -30,19 +30,21 @@
 
 
 print("Recomputing cluster probabilities of each cell to its cluster")
-cluster_prob <- matrix(0,numcells,2);
+cluster_prob <- rep(0,numcells);
 
 for (i in 1:numcells){
     g <- z_inferred_final[i];
     print(paste("cell  is: ", i));
-    cluster_prob[i,2] <- dmnorm(Y_rt_final[i,],alpha_inferred_final[i] * mu_final[,g],beta_inferred_final[i] * matrix(forceSymmetric(Sigma_final[[g]])))[1]
-    cluster_prob[i,1] <- g;
+    cluster_prob[i] <- dmnorm(Y_rt_final[i,],alpha_inferred_final[i] * mu_final[,g],beta_inferred_final[i] * matrix(forceSymmetric(Sigma_final[[g]])))[1]
 }
+
+cluster_prob <- cbind(z_inferred_final[1:numcells],cluster_prob)
+colnames(cluster_prob) <- c("z_inferred", "cluster_probability")
+
 ## write to text file.
 
-f <- paste0(getwd(),"/output/plots/extras/cluster_probabilities.txt")
-write.matrix(cluster_prob, file=f,sep="/t");
-
+f <- paste0(getwd(),"/output/plots/extras/cluster_probabilities.csv")
+write.csv(cluster_prob, file=f);
 
 if(z_true_labels_avl){
     
