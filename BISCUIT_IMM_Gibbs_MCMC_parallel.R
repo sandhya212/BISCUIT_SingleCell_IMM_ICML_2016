@@ -49,7 +49,7 @@ IMM.MCMC <- function(r){
     
     write.table("Computing projection of data",file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
     ## plotting standardised X
-    X_std <- project.data(X,D);
+    #X_std <- project.data(X,D);
 
 
     ## plotting tSNE of X
@@ -135,8 +135,11 @@ IMM.MCMC <- function(r){
         
         #choose the dimension of the model
         d <- dim(X)[2];
-        x <- X_std;
+        #x <- X_std;
         #x <- X_c_norm;
+        #x <- X_c
+        x <- X
+
         
         N <- dim(x)[1] #total number of observations in all classes
         
@@ -156,7 +159,7 @@ IMM.MCMC <- function(r){
         #mu0 <- mu_dprime;
         
         kappa <- 1
-        alpha <- 1; #0.5
+        alpha <- 0.5
         
         #Choose initial values for :K, mu, Sigma, pi, C , N_k
         
