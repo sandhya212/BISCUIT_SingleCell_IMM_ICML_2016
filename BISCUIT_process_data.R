@@ -186,7 +186,7 @@ n <- rep(0,N)
 for( i in 1:N){
     n[i] <- norm_vec(X_c_all[i,])
 }
-X_c_norm_all <- X_c_all/max(n)
+#X_c_norm_all <- X_c_all/max(n)
 
 print('Computing t-sne projection of the data')
 X_tsne_all <- Rtsne(X_all,check_duplicates = FALSE);
