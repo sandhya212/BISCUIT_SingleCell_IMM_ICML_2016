@@ -31,17 +31,24 @@ if(num_gene_batches > 1){
 
 }else{
     
-    mu_final <- matrix(unlist(results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[4]]),gene_batch,ncol(results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[4]]))
-    Sigma_final <- results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[5]];
+   
+    mu_final <- results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[4]]; #numgenes x K (c1,c2..)
+    Sigma_final <- results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[5]]; #numgenes x numgenes X K (c1,c2..)
     
     
     alpha_inferred_final <- as.numeric(results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[2]]);
     beta_inferred_final <- as.numeric(results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[3]]);
-    z_inferred_final <- as.numeric(results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[1]]);
+   
+    
+    z_inferred_final_plot <- as.numeric(results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[1]]); # for classes that are missing z_inferred_final will be appropriately corrected. So the values in results.all.MCMC will not be in sync after as.numeric is applied. This is beneficial for plotting.
+    
+    z_inferred_final <- results.all.MCMC[[num_gene_batches]][[num_gene_sub_batches]][[1]]; # true labels as per logical subscripting.
+    
+    
 
     f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_inferred_one_split.pdf");
     pdf(file=f);
-    plot(X_tsne_all$Y[,1],X_tsne_all$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of X (inferred labels)");
+    plot(X_tsne_all$Y[,1],X_tsne_all$Y[,2],col = col_palette[1*(z_inferred_final_plot)],  main="t-SNE of X (inferred labels)");
     dev.off();
 }
 ########
