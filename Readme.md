@@ -67,13 +67,11 @@ ______
 
 4. The following are also saved as .txt files for further analysis
 
-~/output/plots/extras/pre_imputed_tSNE_coord.txt  (tSNE coordinates of data pre-imputation)
-~/output/plots/extras/post_imputed_tSNE_coord.txt (tSNE coordinates of data post-imputation)
-~/output/plots/Inferred_Sigmas/Sigma_final_k.txt (Inferred Sigma matrices per cluster k)
-~/output/plots/Inferred_means/mu_final (Inferred mean matrix; rows are numgenes, columns are number of total_clusters)
+>- ~/output/plots/extras/pre_imputed_tSNE_coord.txt  (tSNE coordinates of data pre-imputation)
+>- ~/output/plots/extras/post_imputed_tSNE_coord.txt (tSNE coordinates of data post-imputation)
+>- ~/output/plots/Inferred_Sigmas/Sigma_final_k.txt (Inferred Sigma matrices per cluster k)
+>- ~/output/plots/Inferred_means/mu_final (Inferred mean matrix; rows are numgenes, columns are number of total_clusters)
 
-
-Under your repository name, click
 
 **Opening an issue/contacting the developers**
 ---------------------
