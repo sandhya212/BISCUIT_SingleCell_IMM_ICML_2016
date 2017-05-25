@@ -148,7 +148,7 @@ for (i in 1:length(results.all.MCMC)){
 
 print(paste("Number of clusters over gene splits: ",num_clusters_per_batch));
 
-mean_num_clusters <- 8; #round(mean(num_clusters_per_batch));
+mean_num_clusters <- round(mean(num_clusters_per_batch));
 print(paste("Mean number of clusters over gene splits: ",mean_num_clusters));
 
 #
