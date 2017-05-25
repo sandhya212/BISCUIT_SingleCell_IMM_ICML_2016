@@ -146,8 +146,10 @@ for (i in 1:length(results.all.MCMC)){
         }
 }
 
+print(paste("Number of clusters over gene splits: ",num_clusters_per_batch));
 
-mean_num_clusters <- round(mean(num_clusters_per_batch));
+mean_num_clusters <- 8; #round(mean(num_clusters_per_batch));
+print(paste("Mean number of clusters over gene splits: ",mean_num_clusters));
 
 #
 print("Cluster the global CM by kmeans")
@@ -158,6 +160,8 @@ pdf(file=f);
 plot(X_tsne_all$Y[,1],X_tsne_all$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of X (inferred labels) based on kmeans of CM");
 dev.off();
 
+rm(CM)
+rm(ave_CM)
 
 ###########################
 ## Construct the MAP estimates cluster moments
@@ -166,8 +170,8 @@ dev.off();
 ## mu_MAP and Sigma_MAP are formed by calculating the means and covariances separately for each batch and averaging those vectors/matrices (with arithmetic mean) to form one total mean/covariance per cluster.
 ##
 print("Construct the cluster moments based on k-means of the CM")
-not.now <- FALSE
-if (not.now){
+MAP.non.parallel <- FALSE
+if (MAP.non.parallel){ # cycles per cluster
 mu_MAP <- matrix(0, gene_batch*num_gene_batches, mean_num_clusters); #or numgenes?
 Sigma_MAP <- list();
 
@@ -183,18 +187,23 @@ for(i in 1:mean_num_clusters){
     
     for (j in 1:length(cell_ind)){
         mu_temp_cellj <- rep(0,gene_batch*num_gene_batches);
-        print(paste0("cell is ", j));
-        count <- 1
+        
+        
+        p <- paste0("cell is ", cell_ind[j]);
+        print(p);
+        write.table(p,file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+        count <- 1;
+
         Sigma_temp_per_cell <- matrix(0,gene_batch*num_gene_batches,gene_batch*num_gene_batches)
         for (r1 in 1:length(results.all.MCMC)){
             for(r2 in 1:num_gene_sub_batches){
                 inferred_label_per_batch <- results.all.MCMC[[r1]][[r2]][[1]][cell_ind[j]];
                 
                 pos.mu.temp <- (1+(gene_batch*(count-1))):(gene_batch*count)
-                mu_temp_cellj[pos.mu.temp] <- results.all.MCMC[[r1]][[r2]][[4]][,inferred_label_per_batch];
+                mu_temp_cellj[pos.mu.temp] <- results.all.MCMC[[r1]][[r2]][[4]][,as.character(inferred_label_per_batch)];
                 
                 
-                Sigma_temp_per_cell[pos.mu.temp,pos.mu.temp] <- results.all.MCMC[[r1]][[r2]][[5]][,,inferred_label_per_batch];
+                Sigma_temp_per_cell[pos.mu.temp,pos.mu.temp] <- results.all.MCMC[[r1]][[r2]][[5]][,,as.character(inferred_label_per_batch)];
                 count <- count + 1;
             }
         }
@@ -212,8 +221,8 @@ for(i in 1:mean_num_clusters){
     #diag(Sigma_MAP[[i]]) <- diag(Sigma_MAP[[i]]) + 0.001
 }
 
-}else{
-    #print("Compute MAP estimates of moments per cluster")
+}else{ #cycles per cluster in parallel. If there are space /vector allocation issues, switch MAP.non.parallel to TRUE
+    
     
     MAP_local <- function(i){
         
@@ -225,28 +234,33 @@ for(i in 1:mean_num_clusters){
         Sigma_temp <- list();
         for (j in 1:length(cell_ind)){
             p <- paste0("cell is ", cell_ind[j]);
+            print(p);
             write.table(p,file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
             count <- 1
-            Sigma_temp_per_cell <- matrix(0,gene_batch*num_gene_batches,gene_batch*num_gene_batches)
+            Sigma_temp_per_cell <- matrix(0,gene_batch*num_gene_batches,gene_batch*num_gene_batches);
             for (r1 in 1:length(results.all.MCMC)){
+                print(paste("r1", r1))
                 for(r2 in 1:num_gene_sub_batches){
+                    print(paste("r2", r2))
+                    
                     inferred_label_per_batch <- results.all.MCMC[[r1]][[r2]][[1]][cell_ind[j]];
                     
                     pos.mu.temp <- (1+(gene_batch*(count-1))):(gene_batch*count)
-                    mu_temp[pos.mu.temp,j] <- results.all.MCMC[[r1]][[r2]][[4]][,inferred_label_per_batch];
+                    mu_temp[pos.mu.temp,j] <- results.all.MCMC[[r1]][[r2]][[4]][,as.character(inferred_label_per_batch)];
                     
                     
-                    Sigma_temp_per_cell[pos.mu.temp,pos.mu.temp] <- results.all.MCMC[[r1]][[r2]][[5]][,,inferred_label_per_batch];
+                    Sigma_temp_per_cell[pos.mu.temp,pos.mu.temp] <- results.all.MCMC[[r1]][[r2]][[5]][,,as.character(inferred_label_per_batch)];
                     count <- count + 1;
+                    print(paste("count is ",count))
                 }
             }
-            Sigma_temp[[j]] <- Sigma_temp_per_cell
+            Sigma_temp[[j]] <- Sigma_temp_per_cell;
             
         }
-        mu_MAP_per_k <- rowMeans(mu_temp)
+        mu_MAP_per_k <- rowMeans(mu_temp);
         
         Sigma_MAP_per_k <- Reduce('+',Sigma_temp)/length(cell_ind);
-        diag(Sigma_MAP_per_k) <- diag(Sigma_MAP_per_k) + 0.001
+        diag(Sigma_MAP_per_k) <- diag(Sigma_MAP_per_k) + 0.001;
         
         
         return(list(mu_MAP_per_k, Sigma_MAP_per_k))
@@ -257,7 +271,7 @@ for(i in 1:mean_num_clusters){
     print("Monitor debug_CM.txt for parallel process diagnostics and log_CM.txt for MAP progression")
     
     # Start the cluster and register with doSNOW
-    cl <- makeCluster(20, type = "SOCK",outfile="debug_CM.txt") #opens multiple socket connections
+    cl <- makeCluster(num_cores, type = "SOCK",outfile="debug_CM.txt") #opens multiple socket connections
     clusterExport(cl, "MAP_local")
     registerDoSNOW(cl)
     
@@ -297,6 +311,8 @@ for( i in 1:mean_num_clusters){
     
         t <- paste0("Sigma_",i)
         t1 <- paste0("Heatmap for Sigma_",i)
+        
+        print(paste0("cluster is ", i));
         
         Sigma_MAP_temp <- list();
         
