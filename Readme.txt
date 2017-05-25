@@ -75,7 +75,7 @@ total_clusters ## total inferred clusters
 ~/output/plots/Inferred_Sigmas/Sigma_final_k.txt (Inferred Sigma matrices per cluster k)
 ~/output/plots/Inferred_means/mu_final (Inferred mean matrix; rows are numgenes, columns are number of total_clusters)
 
-Opening an issue/contacting the developers**
+Opening an issue/contacting the developers
 ---------------------
 1. Under the repository, click Issues.
 2. Click New issue.
