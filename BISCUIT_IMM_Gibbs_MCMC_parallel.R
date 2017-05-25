@@ -248,7 +248,7 @@ IMM.MCMC <- function(r){
         #####Gibbs sampling########
         
         steps <- num_iter
-        alpha_beta_kickin <- 2
+        alpha_beta_kickin <- 5
         step <- 0
         
         while(step <steps){ #begin of sampling loop
