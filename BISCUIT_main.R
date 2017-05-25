@@ -126,11 +126,8 @@ source("BISCUIT_IMM_Gibbs_MCMC_parallel.R")
 #3) Postprocess MCMC chains from multiple parallel runs
 source("BISCUIT_post_MCMC_genesplit_merge.R")
 
-#4) Compute imputed data based on inferred variables
-source("BISCUIT_parallel_impute.R")
-
-#5) Plots based on true labels
-source("BISCUIT_postprocessing.R")
+#4) Compute imputed data based on inferred variables and generate plots
+source("BISCUIT_post_process.R")
 ########################################
 
 print(Sys.time() - start_time_overall)
