@@ -17,13 +17,9 @@
 ##################
 
 
-#X_std_all <- X_c_all;
-X_all <- matrix(as.numeric(full.data.3),nrow=numcells,ncol=numgenes);
-X_all <- log(X_all+1);
 X_std_all <- X_all;
 
 final_num_K <- length(unique(z_inferred_final));
-final_K <- unique(z_inferred_final)
 
 mean_alpha_inferred <- mean(alpha_inferred_final)
 mean_beta_inferred <- mean(beta_inferred_final)
@@ -39,7 +35,8 @@ A_rt <- matrix(0,final_num_K,numgenes)
 print("Computing predictor matrix A and cluster-based means of alphas and betas")
 for (i in 1:final_num_K){
     
-    cell_ids <- which(z_inferred_final == final_K[i]);
+    #cell_ids <- which(z_inferred_final == final_K[i]);
+    cell_ids <- which(z_inferred_final == i);
     mean_alpha_inferred_per_K[i] <- median(alpha_inferred_final[cell_ids])
     mean_beta_inferred_per_K[i] <- median(beta_inferred_final[cell_ids])
     
@@ -73,11 +70,9 @@ Impute_batches <- function(df){
         #print(paste("imputing cell",cell_ind));
     
         g <- z_inferred_final[cell_ind];
-        ind <- which(final_K==g);
         
-        #based on alpha/beta means per cluster
-        b <- (diag(numgenes) - mean_alpha_inferred_per_K[ind]*diag(A_rt[ind,])) %*%(mu_final[,g])
-        Y_rt[as.character(cell_ind),] <- t(diag(A_rt[ind,]) %*% X_std_all[cell_ind,] + b)
+        b <- (diag(numgenes) - mean_alpha_inferred_per_K[g]*diag(A_rt[g,])) %*%(mu_final[,g])
+        Y_rt[as.character(cell_ind),] <- t(diag(A_rt[g,]) %*% X_std_all[cell_ind,] + b)
 
     }
     return(list(Y_rt))
@@ -89,7 +84,7 @@ Impute_batches <- function(df){
 
 strt_imp <- Sys.time()
 
-num_cells_batch <- 100;
+
 divsr <- numcells %/% num_cells_batch
 dividend <- numcells %% num_cells_batch
 
@@ -146,11 +141,9 @@ if (dividend !=0){
         #print(paste("imputing cell",cell_ind));
         
         g <- z_inferred_final[cell_ind];
-        ind <- which(final_K==g);
         
-        #based on alpha/beta means per cluster
-        b <- (diag(numgenes) - mean_alpha_inferred_per_K[ind]*diag(A_rt[ind,])) %*%(mu_final[,g])
-        Y_rt[as.character(cell_ind),] <- t(diag(A_rt[ind,]) %*% X_std_all[cell_ind,] + b)
+        b <- (diag(numgenes) - mean_alpha_inferred_per_K[g]*diag(A_rt[g,])) %*%(mu_final[,g])
+        Y_rt[as.character(cell_ind),] <- t(diag(A_rt[g,]) %*% X_std_all[cell_ind,] + b)
         
 
     }
@@ -212,59 +205,8 @@ dev.off()
 ##
 ##collecting the pre and post imputed tSNE coordinates
 write.matrix(X_tsne_all$Y, file=paste0(working_path,"/output/plots/extras/pre_imputed_tSNE_coord.txt"),sep = "\t")
-# X_tsne_all <- as.matrix(read.table(file=paste0(working_path,"output/plots/extras/pre_imputed_tSNE_coord.txt"), as.is = TRUE))
+
 write.matrix(Y_tsne$Y, file=paste0(working_path,"/output/plots/extras/post_imputed_tSNE_coord.txt"),sep = "\t")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
