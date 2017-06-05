@@ -31,7 +31,7 @@ working_path <- "/Users/Downloads/BISCUIT/“;
 setwd(working_path);
 
 3. In start_file.R:
-	a. input_file_name: is the name of your input data. File must be of the form cells x genes. You can also download data used in the ICML paper from:
+	a. input_file_name: is the name of your input data available as counts. File must be of the form cells x genes. You can also download data used in the ICML paper from:
 https://storage.googleapis.com/linnarsson-lab-www-blobs/blobs/cortex/expression_mRNA_17-Aug-2014.txt (Data source: http://linnarssonlab.org/cortex/). In this case, input_file_name <- ‘expression_mRNA_17-Aug-2014.txt’
 
 	
