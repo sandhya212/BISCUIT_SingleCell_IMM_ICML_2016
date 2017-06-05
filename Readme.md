@@ -31,7 +31,8 @@ eg. if the code is downloaded at “/User/Downloads/BISCUIT/“, then type
 >setwd(working_path);
 
 3. In start_file.R:
-	a. input_file_name: is the name of your input data. File must be of the form cells x genes. You can also download data used in the ICML paper from [here](https://storage.googleapis.com/linnarsson-lab-www-blobs/blobs/cortex/expression_mRNA_17-Aug-2014.txt).  (Data source: http://linnarssonlab.org/cortex/). 
+
+	a. input_file_name: is the name of your input data available as counts. File must be of the form cells x genes. You can also download data used in the ICML paper from [here](https://storage.googleapis.com/linnarsson-lab-www-blobs/blobs/cortex/expression_mRNA_17-Aug-2014.txt).  (Data source: http://linnarssonlab.org/cortex/). 
 	>input_file_name <- ‘expression_mRNA_17-Aug-2014.txt’
 
 	b. choose_cells: choose the number of cells or comment out to use all the cells in the input dataset.  
