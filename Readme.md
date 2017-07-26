@@ -49,9 +49,9 @@ eg. if the code is downloaded at “/User/Downloads/BISCUIT/“, then type
 
    	h. num_cores: Set this to a value lesser than the totoal number of cores in your device. For eg, in R, type detectCores(). If this returns a value greater than 1 then set num_cores <- detectCores() - 1, else set num_cores <- 1.
     
-    	i. z_true_labels_avl: set to TRUE if true labels of cells are available, else set to FALSE.
+    i. z_true_labels_avl: set to TRUE if true labels of cells are available, else set to FALSE.
 
-    	j. num_cells_batch: required to split the data in feasible sets for parallel processing the confusion matrix. Set this to 1000 if input number of cells is in the 1000s, else set it to 100. 
+    j. num_cells_batch: required to split the data in feasible sets for parallel processing the confusion matrix. Set this to 1000 if input number of cells is in the 1000s, else set it to 100. 
 	
 	k. alpha: DPMM dispersion parameter. A higher value spins more clusters whereas a lower value spins lesser clusters. 
 
