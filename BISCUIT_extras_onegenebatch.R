@@ -60,3 +60,23 @@ if(z_true_labels_avl){
     dev.off()
     
 }
+
+## write all input parameters to text file
+
+f1 <- paste0(getwd(),"/output/plots/extras/Input_parms_used.txt")
+write('********************************************** ',file=f1, append=TRUE)
+write('***** Input parameters and settings used ***** ',file=f1, append=TRUE)
+write('********************************************** ',file=f1, append=TRUE)
+write('',file=f1, append=TRUE)
+
+write(paste('Number of cells chosen: ',numcells),file=f1, append=TRUE)
+write(paste('Number of genes chosen: ',numgenes),file=f1, append=TRUE)
+write(paste('Number of MCMC iterations: ',num_iter),file=f1, append=TRUE)
+write(paste('Number of cells per batch: ',num_cells_batch),file=f1, append=TRUE)
+write(paste('Number of genes per batch: ',gene_batch),file=f1, append=TRUE)
+write(paste('Dispersion parameter, alpha: ',alpha),file=f1, append=TRUE)
+write(paste('Number of parallel gene batches: ',num_gene_batches),file=f1, append=TRUE)
+write(paste('Number of parallel gene subbatches: ',num_gene_sub_batches),file=f1, append=TRUE)
+write(paste('Number of clusters per batch: ',num_clusters_per_batch),file=f1, append=TRUE)
+write(paste('Mean number of clusters: ',mean_num_clusters),file=f1, append=TRUE)
+write(paste('Time for MCMC iterations: ',MCMC_time-strt),file=f1, append=TRUE)
