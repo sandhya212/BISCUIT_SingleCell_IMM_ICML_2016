@@ -112,6 +112,23 @@ num_col <- 40
 #pie(rep(1,num_col), col=(col_vector[1:num_col]))
 col_palette <- col_vector[1:num_col]; # or sample if you wish
 
+###output directory creation
+
+if( dir.exists(paste0(getwd(),"/output"))){
+    file.rename(paste0(getwd(),"/output/"),paste0(getwd(),"/",output_folder_rename,"/"))
+}
+
+if(! dir.exists(paste0(getwd(),"/output"))){
+    dir.create(paste0(getwd(),"/output/"))
+    dir.create(paste0(getwd(),"/output/plots/"))
+    dir.create(paste0(getwd(),"/output/plots/Inferred_labels/"))
+    dir.create(paste0(getwd(),"/output/plots/Inferred_labels_per_step_per_batch/"))
+    dir.create(paste0(getwd(),"/output/plots/Inferred_alphas_betas/"))
+    dir.create(paste0(getwd(),"/output/plots/Inferred_Sigmas/"))
+    dir.create(paste0(getwd(),"/output/plots/Inferred_means/"))
+    dir.create(paste0(getwd(),"/output/plots/extras/"))
+}
+
 ############## Run BISCUIT ##############
 
 start_time_overall <- Sys.time()
@@ -130,6 +147,10 @@ source("BISCUIT_post_MCMC_genesplit_merge.R")
 source("BISCUIT_post_process.R")
 ########################################
 
-print(Sys.time() - start_time_overall)
+#print(Sys.time() - start_time_overall)
+curr_time <- Sys.time()
+print(curr_time - start_time_overall)
+write(paste('Overall run time: ',curr_time - start_time_overall),file=f1, append=TRUE)
+
 
 
