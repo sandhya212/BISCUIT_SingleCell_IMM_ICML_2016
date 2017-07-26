@@ -159,7 +159,7 @@ IMM.MCMC <- function(r){
         #mu0 <- mu_dprime;
         
         kappa <- 1
-        alpha <- 0.5
+        #alpha <- 0.5; # now moved to start_file.R
         
         #Choose initial values for :K, mu, Sigma, pi, C , N_k
         
@@ -607,7 +607,9 @@ print("End of parallel runs");
 
 
 stopCluster(cl)
-print(Sys.time()-strt)
+#print(Sys.time()-strt)
+MCMC_time <- Sys.time()
+print(MCMC_time-strt)
 
 
 
