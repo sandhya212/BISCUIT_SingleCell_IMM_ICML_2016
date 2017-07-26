@@ -23,33 +23,41 @@ Until here, this is a one-time activity.
 
 1. Clone/Download code repository.
 2. At the R prompt: issue command
->rm(list=ls())
+>rm(list=ls());
 >graphics.off()
 3. Issue setwd() to point to the path where the code repository resides. 
 eg. if the code is downloaded at “/User/Downloads/BISCUIT/“, then type
 >working_path <- "/Users/Downloads/BISCUIT/“; 
 >setwd(working_path);
 
-3. In start_file.R:
+4. In start_file.R:
 
 	a. input_file_name: is the name of your input data available as counts. File must be of the form cells x genes. You can also download data used in the ICML paper from [here](https://storage.googleapis.com/linnarsson-lab-www-blobs/blobs/cortex/expression_mRNA_17-Aug-2014.txt).  (Data source: http://linnarssonlab.org/cortex/). 
 	>input_file_name <- ‘expression_mRNA_17-Aug-2014.txt’
 
-	b. choose_cells: choose the number of cells or comment out to use all the cells in the input dataset.  
+	b. input_data_tab_delimited: Set to TRUE if the input data is tab-delimited
 	
-    c. choose_genes: choose the number of genes or comment out to use all the genes in the input dataset.  This will select genes based on the ordered Fiedler vector. For eg., choose_genes <- 20, for the top 20 genes ordered by the magnitude of the Fiedler vector.
-
-	d. gene_batch: set it such that 20 <= gene_batch <= 150. (This will create gene batches across which the Infinite Mixture model will run in parallel)
+	c. is_format_genes_cells: Set to TRUE if the input data has rows as genes and columns as cells.
 	
-	e. num_iter: Maximum number of MCMC iterations for convergence. Set this such that 15 <= num_iter <= ~50. 
+	d. choose_cells: choose the number of cells or comment out to use all the cells in the input dataset.  
+	
+   	e. choose_genes: choose the number of genes or comment out to use all the genes in the input dataset.  This will select genes based on the ordered Fiedler vector. For eg., choose_genes <- 20, for the top 20 genes ordered by the magnitude of the Fiedler vector.
 
-    f. num_cores: Set this to a value lesser than the totoal number of cores in your device. For eg, in R, type detectCores(). If this returns a value greater than 1 then set num_cores <- detectCores() - 1, else set num_cores <- 1.
+	f. gene_batch: set it such that 20 <= gene_batch <= 150. (This will create gene batches across which the Infinite Mixture model will run in parallel)
+	
+	g. num_iter: Maximum number of MCMC iterations for convergence. Set this such that 15 <= num_iter <= ~50. 
+
+   	h. num_cores: Set this to a value lesser than the totoal number of cores in your device. For eg, in R, type detectCores(). If this returns a value greater than 1 then set num_cores <- detectCores() - 1, else set num_cores <- 1.
     
-    g. z_true_labels_avl: set to TRUE if true labels of cells are available, else set to FALSE.
+    	i. z_true_labels_avl: set to TRUE if true labels of cells are available, else set to FALSE.
 
-    h. num_cells_batch: required to split the data in feasible sets for parallel processing the confusion matrix. Set this to 1000 if input number of cells is in the 1000s, else set it to 100. 
+    	j. num_cells_batch: required to split the data in feasible sets for parallel processing the confusion matrix. Set this to 1000 if input number of cells is in the 1000s, else set it to 100. 
+	
+	k. alpha: DPMM dispersion parameter. A higher value spins more clusters whereas a lower value spins lesser clusters. 
 
-4. At the R prompt: Issue command
+	l. output_folder_rename:  give a prefix to rename your current output folder. 
+
+5. At the R prompt: Issue command
 > source("start_file.R")
 
 **Output**
