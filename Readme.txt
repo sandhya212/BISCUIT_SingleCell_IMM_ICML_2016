@@ -47,7 +47,7 @@ https://storage.googleapis.com/linnarsson-lab-www-blobs/blobs/cortex/expression_
 
 	g. num_iter: Maximum number of MCMC iterations for convergence. Set this such that 15 <= num_iter <= ~50.
 
-	h. num_cores: Set this to a value lesser than the totoal number of cores in your device. For eg, in R, type detectCores(). If this returns a value greater than 1 then set num_cores <- detectCores() - 1, else set num_cores <- 1.
+	h. num_cores: Set this to a value lesser than the total number of cores in your device. For eg, in R, type detectCores(). If this returns a value greater than 1 then set num_cores <- detectCores() - 1, else set num_cores <- 1.
 
 	i. z_true_labels_avl: set to TRUE if true labels of cells are available, else set to FALSE.
 
