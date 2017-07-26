@@ -55,7 +55,7 @@ eg. if the code is downloaded at “/User/Downloads/BISCUIT/“, then type
 	
 	k. alpha: DPMM dispersion parameter. A higher value spins more clusters whereas a lower value spins lesser clusters. 
 
-	l. output_folder_rename:  give a prefix to rename your current output folder. 
+	l. output_folder_rename: give a prefix to rename your existing /output/ folder, if any.
 
 5. At the R prompt: Issue command
 > source("start_file.R")
