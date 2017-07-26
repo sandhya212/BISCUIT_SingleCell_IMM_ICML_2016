@@ -55,7 +55,7 @@ https://storage.googleapis.com/linnarsson-lab-www-blobs/blobs/cortex/expression_
 
 	k. alpha: DPMM dispersion parameter. A higher value spins more clusters whereas a lower value spins lesser clusters.
 
-	l. output_folder_rename: give a prefix to rename your current output folder.b. choose_cells: choose the number of cells or comment out to use ‘all’ the cells in the input dataset. 
+	l. output_folder_rename:  #give a prefix to rename your existing /output/ folder, if any.
 
 5. At the R prompt: Issue command ‘source(“start_file.R”)’. 
 
