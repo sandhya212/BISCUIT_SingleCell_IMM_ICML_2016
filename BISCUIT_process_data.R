@@ -48,7 +48,19 @@ if (input_file_name=="expression_mRNA_17-Aug-2014.txt"){
     
     
 }else{ #this assumes the input data has both column and row names.
-    full.data <- data.frame(read.csv(input_file_name, header=TRUE, row.names=1, sep=",",stringsAsFactors = TRUE));
+    #full.data <- data.frame(read.csv(input_file_name, header=TRUE, row.names=1, sep=",",stringsAsFactors = TRUE));
+    
+    if(input_data_tab_delimited == TRUE){
+        full.data <- data.frame(read.csv(input_file_name, header=TRUE, sep="\t",stringsAsFactors = TRUE));
+    }else{ #comma-separated input data
+        full.data <- data.frame(read.csv(input_file_name, header=TRUE, row.names=1, sep=",",stringsAsFactors = TRUE));
+    }
+    
+    if(is_format_genes_cells == TRUE){
+        full.data <- t(full.data) #cellsxgenes
+    }
+    
+    
     dim(full.data)
     colnames(full.data); #gene_names
     rownames(full.data); # #cell_names
@@ -173,7 +185,7 @@ full.data.3 <- full.data.2[1:numcells,1:numgenes];
 print("Ensuring user-specified data is numeric")
 
 X_all <- matrix(as.numeric(full.data.3),nrow=numcells,ncol=numgenes);
-X_all <- log(X_all+1); # log normalisation. +1 to account for zero entries in X that cannot be log transformed.
+X_all <- log(X_all + 0.1); # log normalisation. + 0.1 to account for zero entries in X that cannot be log transformed.
 
 ###
 # Visualisation
@@ -199,7 +211,7 @@ X_tsne_all <- Rtsne(X_all,check_duplicates = FALSE);
 ##Global normalised data
 
 log_lib_size <- rowSums(X_all);
-X_all_global_norm <- X_all/log_lib_size;
+X_all_global_norm <- X_all/(log_lib_size + 0.0001);
 X_tsne_all_global_norm <- Rtsne(X_all_global_norm,check_duplicates = FALSE);
 
 #rm(X_all)
