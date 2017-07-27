@@ -77,6 +77,6 @@ write(paste('Number of genes per batch: ',gene_batch),file=f1, append=TRUE)
 write(paste('Dispersion parameter, alpha: ',alpha),file=f1, append=TRUE)
 write(paste('Number of parallel gene batches: ',num_gene_batches),file=f1, append=TRUE)
 write(paste('Number of parallel gene subbatches: ',num_gene_sub_batches),file=f1, append=TRUE)
-write(paste('Number of clusters per batch: ',num_clusters_per_batch),file=f1, append=TRUE)
-write(paste('Mean number of clusters: ',mean_num_clusters),file=f1, append=TRUE)
+write(paste('Number of clusters: ',final_num_K),file=f1, append=TRUE)
 write(paste('Time for MCMC iterations: ',MCMC_time-strt),file=f1, append=TRUE)
+
