@@ -11,7 +11,7 @@ Software provided in R.
 2. Once installed, open a terminal and at the command prompt, type R. 
 3. At the R prompt: Install the following R packages by issuing command:
 
->install.packages(c("MCMCpack","mvtnorm","ellipse","coda","Matrix","Rtsne","gtools","foreach","doParallel","doSNOW","snow","lattice","MASS","bayesm","robustbase","chron","mnormt","schoolmath","devtools"))
+>install.packages(c("MCMCpack","mvtnorm","ellipse","coda","Matrix","Rtsne","gtools","foreach","doParallel","doSNOW","snow","lattice","MASS","bayesm","robustbase","chron","mnormt","schoolmath","devtools","RColorBrewer"))
 
 
 > **Note:**
