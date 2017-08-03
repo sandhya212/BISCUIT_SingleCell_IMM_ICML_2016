@@ -51,7 +51,7 @@ if (input_file_name=="expression_mRNA_17-Aug-2014.txt"){
     #full.data <- data.frame(read.csv(input_file_name, header=TRUE, row.names=1, sep=",",stringsAsFactors = TRUE));
     
     if(input_data_tab_delimited == TRUE){
-        full.data <- data.frame(read.csv(input_file_name, header=TRUE, sep="\t",stringsAsFactors = TRUE));
+        full.data <- data.frame(read.csv(input_file_name, header=TRUE, row.names=1, sep="\t",stringsAsFactors = TRUE));
     }else{ #comma-separated input data
         full.data <- data.frame(read.csv(input_file_name, header=TRUE, row.names=1, sep=",",stringsAsFactors = TRUE));
     }
