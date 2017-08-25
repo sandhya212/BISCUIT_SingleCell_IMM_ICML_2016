@@ -30,6 +30,8 @@ if (input_file_name=="expression_mRNA_17-Aug-2014.txt"){
     colnames(full.data); #names(full.data),
     rownames(full.data);
     
+    gene_names <- full.data[11:nrow(full.data),1];
+    
     #creating the cellsXgenes data
     num_rows <- length(c(11:nrow(full.data)))
     num_cols <- length(c(3:ncol(full.data)))
@@ -60,9 +62,9 @@ if (input_file_name=="expression_mRNA_17-Aug-2014.txt"){
         full.data <- t(full.data) #cellsxgenes
     }
     
-    
+       
     dim(full.data)
-    colnames(full.data); #gene_names
+    gene_names <- colnames(full.data); #gene_names
     rownames(full.data); # #cell_names
     
     #creating the cellsXgenes data
@@ -81,13 +83,14 @@ full.data.1[is.na(full.data.1)] <- 0;
 
 #save(full.data.1,file="full.data.1.RData")
 
-#Idea 1 to get meaningful genes: choose genes based on higest global co-expression
+#Idea 1 to get meaningful genes: choose genes based on highest global co-expression
 stddev.genes <- apply(full.data.1,2,sd);## find std dev of genes
 f <- paste0(getwd(),"/output/plots/Stddev_genes.pdf")
 pdf(file=f);
 plot(sort(stddev.genes,decreasing=T),typ='o')
 dev.off();
 #full.data.2 <- full.data.1[,order(stddev.genes,decreasing=TRUE)];
+#gene_names <- gene_names[order(stddev.genes,decreasing=T)]; 
 
 #Idea 2 to get meaningful genes: perform disparity check between rows and columns
 emp.cov <- cov(full.data.1);
@@ -100,6 +103,7 @@ pdf(file=f);
 plot(sort(gene.disparity,decreasing=T),typ='o')
 dev.off();
 #full.data.2 <- full.data.1[,order(gene.disparity,decreasing=TRUE)];
+#gene_names <- gene_names[order(gene.disparity,decreasing=T)];
 
 #Idea 3 to get meaningful genes: use Fiedler vector to split genes (graph theoretic partition)
 print("Calculating the Fiedler vector of the data")
@@ -116,7 +120,7 @@ if (input_file_name=="expression_mRNA_17-Aug-2014.txt"){
 
 #load(file="fvec.RData")
 full.data.2 <- full.data.1[,order(f.vec,decreasing=TRUE)]
-
+gene_names <- gene_names[order(f.vec,decreasing=TRUE)];
 
 #choose cells
 
@@ -155,6 +159,12 @@ if(exists("choose_genes")){
 print(paste("numgenes is", numgenes))
 ###
 
+##write the genes used in this run into a file
+##$$$$
+f <- paste0(getwd(),"/output/plots/inferred_means/Genes_selected.csv")
+write.csv(gene_names[1:numgenes], file=f);
+f <- paste0(getwd(),"/output/plots/inferred_Sigmas/Genes_selected.csv")
+write.csv(gene_names[1:numgenes], file=f);
 
 
 #############################################################################################
