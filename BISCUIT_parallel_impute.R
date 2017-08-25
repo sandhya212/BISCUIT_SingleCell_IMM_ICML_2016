@@ -157,12 +157,17 @@ if (dividend !=0){
 
 
 
-##strip off first row of Y_rt_finals
-
-
+##strip off first row of Y_rt_final
 Y_rt_final <- Y_rt_final[-1,]
 
+##write the imputed matrix, still in logspace
+f <- paste0(getwd(),"/output/plots/extras/Imputed_Y_logspace.txt");
+write.matrix(Y_rt_final,file=f,sep="\t")
 
+##write the imputed matrix, in countspace
+Y_rt_count_space <- exp(Y_rt_final) - 0.1;
+f <- paste0(getwd(),"/output/plots/extras/Imputed_Y_countspace.txt");
+write.matrix(Y_rt_count_space,file=f,sep="\t")
 
 
 ## plotting tSNE of Y
