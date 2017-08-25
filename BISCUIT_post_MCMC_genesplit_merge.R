@@ -56,6 +56,13 @@ if(num_gene_batches > 1){
 alpha_inferred_final <- alpha_inferred_final/num_gene_batches;
 beta_inferred_final <- beta_inferred_final/num_gene_batches;
 
+## write alphas and betas to .csv
+
+f <- paste0(getwd(),"/output/plots/Inferred_alphas_betas/Final_alphas.csv")
+write.csv(alpha_inferred_final, file=f);
+f <- paste0(getwd(),"/output/plots/Inferred_alphas_betas/Final_betas.csv")
+write.csv(beta_inferred_final, file=f);
+
 
 filename=paste0(getwd(),"/output/plots/Inferred_alphas_betas/Final_alpha_beta.pdf")
 pdf(file=filename)
