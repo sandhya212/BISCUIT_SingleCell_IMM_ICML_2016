@@ -82,6 +82,12 @@ total_clusters ## total inferred clusters
 ~/output/plots/extras/post_imputed_tSNE_coord.txt (tSNE coordinates of data post-imputation)
 ~/output/plots/Inferred_Sigmas/Sigma_final_k.txt (Inferred Sigma matrices per cluster k)
 ~/output/plots/Inferred_means/mu_final (Inferred mean matrix; rows are numgenes, columns are number of total_clusters)
+~/output/plots/Inferred_Sigmas/Genes_selected.csv (Genes selected based on the global co-expression/gene disparity/Fiedler vector)
+~/output/plots/Inferred_means/Genes_selected.csv (Genes selected based on the global co-expression/gene disparity/Fiedler vector)
+~/output/plots/Inferred_alphas_betas/Final_alphas.csv (Inferred alpha values)
+~/output/plots/Inferred_alphas_betas/Final_betas.csv (Inferred beta values)
+~/output/plots/extras/Imputed_Y_countspace.txt (Imputed data in count space)
+~/output/plots/extras/Imputed_Y_logspace.txt (Imputed data in log space)
 
 Opening an issue/contacting the developers
 ---------------------
