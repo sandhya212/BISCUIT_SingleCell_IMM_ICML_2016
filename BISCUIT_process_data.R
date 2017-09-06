@@ -161,9 +161,9 @@ print(paste("numgenes is", numgenes))
 
 ##write the genes used in this run into a file
 ##$$$$
-f <- paste0(getwd(),"/output/plots/inferred_means/Genes_selected.csv")
+f <- paste0(getwd(),"/output/plots/Inferred_means/Genes_selected.csv")
 write.csv(gene_names[1:numgenes], file=f);
-f <- paste0(getwd(),"/output/plots/inferred_Sigmas/Genes_selected.csv")
+f <- paste0(getwd(),"/output/plots/Inferred_Sigmas/Genes_selected.csv")
 write.csv(gene_names[1:numgenes], file=f);
 
 
