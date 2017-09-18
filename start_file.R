@@ -55,7 +55,7 @@ num_cells_batch <- 1000; #set this to 1000 if input number of cells is in the 10
 
 alpha <- 1; #DPMM dispersion parameter. A higher value spins more clusters whereas a lower value spins lesser clusters.
 
-output_folder_rename <- "current_output"; #give a prefix to rename your existing /output/ folder, if any.
+output_folder_name <- "output"; #give a name for your output folder.
 
 ## call BISCUIT
 source("BISCUIT_main.R")
