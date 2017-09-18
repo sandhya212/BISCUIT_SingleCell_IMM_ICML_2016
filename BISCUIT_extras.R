@@ -29,26 +29,26 @@ colnames(cluster_prob) <- c("z_inferred", "cluster_probability")
 
 ## write to text file.
 
-f <- paste0(getwd(),"/output/plots/extras/cluster_probabilities.csv")
+f <- paste0(getwd(),"/",output_folder_name,"/plots/extras/cluster_probabilities.csv")
 write.csv(cluster_prob, file=f);
 
 if(z_true_labels_avl){
     
-    f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_true_inferred_labels_preimputed_X.pdf");
+    f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Final_true_inferred_labels_preimputed_X.pdf");
     pdf(file=f);
     par(mfrow=c(2,1))
     plot(X_tsne_all$Y[,1],X_tsne_all$Y[,2],col = col_palette[1*(z_true)],  main="t-SNE of pre-imputed X (true labels)");
     plot(X_tsne_all$Y[,1],X_tsne_all$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of pre-imputed X (inferred labels)");
     dev.off()
     
-    f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_true_inferred_labels_imputed_X.pdf");
+    f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Final_true_inferred_labels_imputed_X.pdf");
     pdf(file=f);
     par(mfrow=c(2,1))
     plot(Y_tsne$Y[,1],Y_tsne$Y[,2],col = col_palette[1*(z_true)],  main="t-SNE of imputed X (true labels)");
     plot(Y_tsne$Y[,1],Y_tsne$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of imputed X (inferred labels)");
     dev.off()
     
-    f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_true_inferred_labels_globalnorm_X.pdf");
+    f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Final_true_inferred_labels_globalnorm_X.pdf");
     pdf(file=f);
     par(mfrow=c(2,1))
     plot(X_tsne_all_global_norm$Y[,1],X_tsne_all_global_norm$Y[,2],col = col_palette[1*(z_true)],  main="t-SNE of global normalised X (true labels)");
@@ -59,7 +59,7 @@ if(z_true_labels_avl){
 
 ## write all input parameters to text file
 
-f1 <- paste0(getwd(),"/output/plots/extras/Input_parms_used.txt")
+f1 <- paste0(getwd(),"/",output_folder_name,"/plots/extras/Input_parms_used.txt")
 write('********************************************** ',file=f1, append=TRUE)
 write('***** Input parameters and settings used ***** ',file=f1, append=TRUE)
 write('********************************************** ',file=f1, append=TRUE)
