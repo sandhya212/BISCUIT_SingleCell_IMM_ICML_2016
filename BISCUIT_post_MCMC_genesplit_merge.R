@@ -46,7 +46,7 @@ if(num_gene_batches > 1){
     
     
 
-    f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_inferred_one_split.pdf");
+    f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Final_inferred_one_split.pdf");
     pdf(file=f);
     plot(X_tsne_all$Y[,1],X_tsne_all$Y[,2],col = col_palette[1*(z_inferred_final_plot)],  main="t-SNE of X (inferred labels)");
     dev.off();
@@ -58,13 +58,13 @@ beta_inferred_final <- beta_inferred_final/num_gene_batches;
 
 ## write alphas and betas to .csv
 
-f <- paste0(getwd(),"/output/plots/Inferred_alphas_betas/Final_alphas.csv")
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_alphas_betas/Final_alphas.csv")
 write.csv(alpha_inferred_final, file=f);
-f <- paste0(getwd(),"/output/plots/Inferred_alphas_betas/Final_betas.csv")
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_alphas_betas/Final_betas.csv")
 write.csv(beta_inferred_final, file=f);
 
 
-filename=paste0(getwd(),"/output/plots/Inferred_alphas_betas/Final_alpha_beta.pdf")
+filename=paste0(getwd(),"/",output_folder_name,"/plots/Inferred_alphas_betas/Final_alpha_beta.pdf")
 pdf(file=filename)
 par(mfrow=c(1,2))
 plot(alpha_inferred_final, type="l", main="alpha final spread");
@@ -82,7 +82,7 @@ min_a <- min(alpha_inferred_final)
 max_a <- max(alpha_inferred_final)
 mean_a <- mean(min_a,max_a)
 
-f=paste0(getwd(),"/output/plots/Inferred_alphas_betas/Inferred_alpha_log_libsize.pdf")
+f=paste0(getwd(),"/",output_folder_name,"/plots/Inferred_alphas_betas/Inferred_alpha_log_libsize.pdf")
 pdf(file=f)
 plot(sort(log_lib_size),alpha_inferred_final[order(log_lib_size)], main="alpha final spread",ylim=c(min_a-mean_a,max_a+mean_a),xlab ="log(library_size)",ylab="Inferred alphas");
 dev.off()
@@ -93,7 +93,7 @@ max_b <- max(beta_inferred_final)
 mean_b <- mean(min_b,max_b)
 diff_b <- max_b - min_b
 
-f=paste0(getwd(),"/output/plots/Inferred_alphas_betas/Inferred_beta_log_libsize.pdf")
+f=paste0(getwd(),"/",output_folder_name,"/plots/Inferred_alphas_betas/Inferred_beta_log_libsize.pdf")
 pdf(file=f)
 plot(sort(log_lib_size), beta_inferred_final[order(log_lib_size)], main="beta final spread",ylim=c(min_b-diff_b,max_b+diff_b),xlab ="log(library_size)",ylab="Inferred betas");
 dev.off()
