@@ -36,11 +36,11 @@ dividend <- numcells %% num_cells_batch
 CM_local <- function(df){
     
     df_indicator <- paste0("Batch in process is: ",df);
-    write.table(df_indicator,file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+    write.table(df_indicator,file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
     
     cell_j_vals <- matrix(0,length(((1+(num_cells_batch*(df-1))):(num_cells_batch*df))),numcells)
-    write.table("Cells selected are ",file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
-    write.table(((1+(num_cells_batch*(df-1))):(num_cells_batch*df)),file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+    write.table("Cells selected are ",file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
+    write.table(((1+(num_cells_batch*(df-1))):(num_cells_batch*df)),file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
     
     rownames(cell_j_vals) <- as.character(((1+(num_cells_batch*(df-1))):(num_cells_batch*df)))
     colnames(cell_j_vals) <- as.character(1:numcells)
@@ -87,10 +87,10 @@ if (dividend !=0){
     cell_j_vals <- matrix(0,dividend,numcells)
     
     df_indicator <- paste0("Batch in process is: ",divsr+1);
-    write.table(df_indicator,file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+    write.table(df_indicator,file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
     
-    write.table("Cells selected are ",file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
-    write.table(((num_cells_batch*divsr+1):(num_cells_batch*divsr+dividend)),file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+    write.table("Cells selected are ",file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
+    write.table(((num_cells_batch*divsr+1):(num_cells_batch*divsr+dividend)),file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
     
     rownames(cell_j_vals) <- as.character((num_cells_batch*divsr+1):(num_cells_batch*divsr+dividend))
     colnames(cell_j_vals) <- as.character(1:numcells)
@@ -126,7 +126,7 @@ diag(CM) <- 0;
 ave_CM <- CM / num_gene_batches;
 
 
-f <- paste0(getwd(),"/output/plots/extras/ave_global_Conf_mat.txt");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/extras/ave_global_Conf_mat.txt");
 write.matrix(ave_CM, file=f, sep="\t")
 
 
@@ -155,7 +155,7 @@ print(paste("Mean number of clusters over gene splits: ",mean_num_clusters));
 print("Cluster the global CM by kmeans")
 kmeans_CM <- kmeans(ave_CM,mean_num_clusters,nstart=1)
 z_inferred_final <- kmeans_CM$cluster
-f <- paste0(getwd(),"/output/plots/Inferred_labels/Conf_mat_final_inferred_kmeans.pdf");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Conf_mat_final_inferred_kmeans.pdf");
 pdf(file=f);
 plot(X_tsne_all$Y[,1],X_tsne_all$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of X (inferred labels) based on kmeans of CM");
 dev.off();
@@ -191,7 +191,7 @@ for(i in 1:mean_num_clusters){
         
         p <- paste0("cell is ", cell_ind[j]);
         print(p);
-        write.table(p,file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+        write.table(p,file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
         count <- 1;
 
         Sigma_temp_per_cell <- matrix(0,gene_batch*num_gene_batches,gene_batch*num_gene_batches)
@@ -226,7 +226,7 @@ for(i in 1:mean_num_clusters){
     
     MAP_local <- function(i){
         
-        write.table(paste0("Cluster in process is: ",i),file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+        write.table(paste0("Cluster in process is: ",i),file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
         
         cell_ind <- which(z_inferred_final == i);
         mu_temp <- matrix(0,gene_batch*num_gene_batches, length(cell_ind));
@@ -235,7 +235,7 @@ for(i in 1:mean_num_clusters){
         for (j in 1:length(cell_ind)){
             p <- paste0("cell is ", cell_ind[j]);
             print(p);
-            write.table(p,file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+            write.table(p,file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
             count <- 1
             Sigma_temp_per_cell <- matrix(0,gene_batch*num_gene_batches,gene_batch*num_gene_batches);
             for (r1 in 1:length(results.all.MCMC)){
@@ -324,7 +324,7 @@ for( i in 1:mean_num_clusters){
         Sigma_final[[i]] <- Reduce('+', Sigma_MAP_temp)/draws;
         
         
-        f <- paste0(getwd(),"/output/plots/Inferred_Sigmas/Sigma_final_",i,".txt");
+        f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_Sigmas/Sigma_final_",i,".txt");
         write.matrix(Sigma_final[[i]],file=f,sep="\t")
 
 
@@ -339,7 +339,7 @@ for( i in 1:mean_num_clusters){
 
 ####collect mu_final and Sigma_final
 
-f <- paste0(getwd(),"/output/plots/Inferred_means/mu_final.txt");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_means/mu_final.txt");
 write.matrix(mu_final,file=f,sep="\t")
 
 
