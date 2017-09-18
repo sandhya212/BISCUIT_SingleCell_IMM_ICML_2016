@@ -52,7 +52,7 @@ Impute_batches <- function(df){
     
     
     df_indicator <- paste0("Imputed batch in process is: ",df);
-    write.table(df_indicator,file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+    write.table(df_indicator,file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
 
 
 
@@ -127,10 +127,10 @@ if (dividend !=0){
    
    
     df_indicator <- paste0("Imputed Batch in process is: ",divsr+1);
-    write.table(df_indicator,file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+    write.table(df_indicator,file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
     
-    write.table("Cells selected are ",file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
-    write.table(((num_cells_batch*divsr+1):(num_cells_batch*divsr+dividend)),file=paste0(getwd(),"/output/log_CM.txt"),append=TRUE,sep="");
+    write.table("Cells selected are ",file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
+    write.table(((num_cells_batch*divsr+1):(num_cells_batch*divsr+dividend)),file=paste0(getwd(),"/",output_folder_name,"/log_CM.txt"),append=TRUE,sep="");
     Y_rt <- matrix(0, dividend, numgenes)
 
     rownames(Y_rt) <- as.character((num_cells_batch*divsr+1):(num_cells_batch*divsr+dividend))
@@ -161,12 +161,12 @@ if (dividend !=0){
 Y_rt_final <- Y_rt_final[-1,]
 
 ##write the imputed matrix, still in logspace
-f <- paste0(getwd(),"/output/plots/extras/Imputed_Y_logspace.txt");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/extras/Imputed_Y_logspace.txt");
 write.matrix(Y_rt_final,file=f,sep="\t")
 
 ##write the imputed matrix, in countspace
 Y_rt_count_space <- exp(Y_rt_final) - 0.1;
-f <- paste0(getwd(),"/output/plots/extras/Imputed_Y_countspace.txt");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/extras/Imputed_Y_countspace.txt");
 write.matrix(Y_rt_count_space,file=f,sep="\t")
 
 
@@ -180,12 +180,12 @@ print('Computing t-sne projection of the imputed data')
 Y_tsne <- Rtsne(Y_rt_final,check_duplicates = FALSE);
 
 #rm(Y_rt_final)
-f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_inferred_labels_imputed_X.pdf");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Final_inferred_labels_imputed_X.pdf");
 pdf(file=f);
 plot(Y_tsne$Y[,1],Y_tsne$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of imputed X (inferred labels)");
 dev.off()
 
-f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_inferred_labels_prepost_imputed_X.pdf");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Final_inferred_labels_prepost_imputed_X.pdf");
 pdf(file=f);
 par(mfrow=c(2,1))
 plot(X_tsne_all$Y[,1],X_tsne_all$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of pre-imputed X (inferred labels)");
@@ -193,14 +193,14 @@ plot(Y_tsne$Y[,1],Y_tsne$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t
 dev.off()
 
 
-f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_inferred_labels_globalnorm_post_imputed_X.pdf");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Final_inferred_labels_globalnorm_post_imputed_X.pdf");
 pdf(file=f);
 par(mfrow=c(2,1))
 plot(X_tsne_all_global_norm$Y[,1],X_tsne_all_global_norm$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of global normalised X (inferred labels)");
 plot(Y_tsne$Y[,1],Y_tsne$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of imputed X (inferred labels)");
 dev.off()
 
-f <- paste0(getwd(),"/output/plots/Inferred_labels/Final_inferred_labels_globalnorm_X.pdf");
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/Final_inferred_labels_globalnorm_X.pdf");
 pdf(file=f);
 plot(X_tsne_all_global_norm$Y[,1],X_tsne_all_global_norm$Y[,2],col = col_palette[1*(z_inferred_final)],  main="t-SNE of global normalised X (inferred labels)");
 dev.off()
@@ -209,9 +209,9 @@ dev.off()
 
 ##
 ##collecting the pre and post imputed tSNE coordinates
-write.matrix(X_tsne_all$Y, file=paste0(working_path,"/output/plots/extras/pre_imputed_tSNE_coord.txt"),sep = "\t")
+write.matrix(X_tsne_all$Y, file=paste0(working_path,"/",output_folder_name,"/plots/extras/pre_imputed_tSNE_coord.txt"),sep = "\t")
 
-write.matrix(Y_tsne$Y, file=paste0(working_path,"/output/plots/extras/post_imputed_tSNE_coord.txt"),sep = "\t")
+write.matrix(Y_tsne$Y, file=paste0(working_path,"/",output_folder_name,"/plots/extras/post_imputed_tSNE_coord.txt"),sep = "\t")
 
 
 
