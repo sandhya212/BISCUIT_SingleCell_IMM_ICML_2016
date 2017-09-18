@@ -85,7 +85,7 @@ full.data.1[is.na(full.data.1)] <- 0;
 
 #Idea 1 to get meaningful genes: choose genes based on highest global co-expression
 stddev.genes <- apply(full.data.1,2,sd);## find std dev of genes
-f <- paste0(getwd(),"/output/plots/Stddev_genes.pdf")
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Stddev_genes.pdf")
 pdf(file=f);
 plot(sort(stddev.genes,decreasing=T),typ='o')
 dev.off();
@@ -98,7 +98,7 @@ diag(emp.cov) <- 0;
 rowsums.emp.cov <- rowSums(emp.cov);
 colsums.emp.cov <- colSums(emp.cov);
 gene.disparity <- rowsums.emp.cov + colsums.emp.cov
-f <- paste0(getwd(),"/output/plots/Disparity_genes.pdf")
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Disparity_genes.pdf")
 pdf(file=f);
 plot(sort(gene.disparity,decreasing=T),typ='o')
 dev.off();
@@ -126,7 +126,7 @@ gene_names <- gene_names[order(f.vec,decreasing=TRUE)];
 
 lib_size <- rowSums(full.data.2);
 
-f <- paste0(getwd(),"/output/plots/lib_size_hist.pdf")
+f <- paste0(getwd(),"/",output_folder_name,"/plots/lib_size_hist.pdf")
 pdf(file=f);
 par(mfrow=c(2,1))
 plot(sort(lib_size,decreasing=T),typ='l')
@@ -161,9 +161,9 @@ print(paste("numgenes is", numgenes))
 
 ##write the genes used in this run into a file
 ##$$$$
-f <- paste0(getwd(),"/output/plots/Inferred_means/Genes_selected.csv")
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_means/Genes_selected.csv")
 write.csv(gene_names[1:numgenes], file=f);
-f <- paste0(getwd(),"/output/plots/Inferred_Sigmas/Genes_selected.csv")
+f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_Sigmas/Genes_selected.csv")
 write.csv(gene_names[1:numgenes], file=f);
 
 
