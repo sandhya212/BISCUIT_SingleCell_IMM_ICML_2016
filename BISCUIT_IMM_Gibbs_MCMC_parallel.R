@@ -22,11 +22,11 @@ IMM.MCMC <- function(r){
     full.data.subsample <- full.data.2[1:numcells,(1+(gene_batch*(r-1))):(gene_batch*r)];
     
     r_indicator <- paste0("Batch in process is: ",r);
-    write.table(r_indicator,file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
-    write.table("Genes selected are ",file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
-    write.table((1+(gene_batch*(r-1))):(gene_batch*r),file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
+    write.table(r_indicator,file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
+    write.table("Genes selected are ",file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
+    write.table((1+(gene_batch*(r-1))):(gene_batch*r),file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
     ## Ensure data is numeric
-    write.table("Ensuring data is numeric",file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
+    write.table("Ensuring data is numeric",file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
     
     #X <- matrix(as.numeric(retina.data.subsample),nrow=numcells,ncol=gene_batch);
     X <- full.data.subsample;
@@ -47,13 +47,13 @@ IMM.MCMC <- function(r){
     X_c_norm <- X_c/max(n)
     
     
-    write.table("Computing projection of data",file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
+    write.table("Computing projection of data",file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
     ## plotting standardised X
     #X_std <- project.data(X,D);
 
 
     ## plotting tSNE of X
-    write.table('Computing t-sne projection of the data',file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
+    write.table('Computing t-sne projection of the data',file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
     X_tsne <- Rtsne(X,check_duplicates = FALSE,perplexity=10);
 
 
@@ -63,7 +63,7 @@ IMM.MCMC <- function(r){
     #############################################################################################
     #############################################################################################
     
-    write.table("Computing empirical mean and covariance of data",file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
+    write.table("Computing empirical mean and covariance of data",file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
     ##Hyperprior layer
     #mu_dprime <- colMeans(X_c_norm);
     #Sigma_dprime <- cov(X_c_norm);
@@ -75,7 +75,7 @@ IMM.MCMC <- function(r){
     
     #sigma_prime  <- rep(1,D);
     
-    write.table("Estimating initial values of alphas and betas", file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
+    write.table("Estimating initial values of alphas and betas", file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
 
     
     ###antilog of X
@@ -114,7 +114,7 @@ IMM.MCMC <- function(r){
     
     ####Printing
     
-    l <- paste0(getwd(),"/output/plots/Inferred_alphas_betas/Initial_alpha_beta_spread(batch)",r,".pdf");
+    l <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_alphas_betas/Initial_alpha_beta_spread(batch)",r,".pdf");
     pdf(file=l)
     par(mfrow=c(1,2))
     plot(alpha_j_init, type="l", main="alpha init spread");
@@ -233,7 +233,7 @@ IMM.MCMC <- function(r){
         
         
         
-        write.table("Computing initial NIW moments",file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
+        write.table("Computing initial NIW moments",file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
         
         for(i in 1:N){
             #print(i)
@@ -373,7 +373,7 @@ IMM.MCMC <- function(r){
                 for (k in 1:K){
                     
                     text6 <- (paste('cluster is ', k));
-                    write(text6,file=paste0(getwd(),"/output/log.txt"),append=TRUE,sep="");
+                    write(text6,file=paste0(getwd(),"/",output_folder_name,"/log.txt"),append=TRUE,sep="");
                     print(paste("k is: ", k));
                     if( cnames[k] %in% cnamespreviousstep){
                         qi[cnames[k]] <- Nk[cnames[k]]*Q[i,cnames[k]] ; #revert to this
@@ -504,7 +504,7 @@ IMM.MCMC <- function(r){
             
             
             
-            f <- paste0(getwd(),"/output/plots/Inferred_labels_per_step_per_batch/inferred_labels_(step)_",step,"_(batch)_",r,".pdf")
+            f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels_per_step_per_batch/inferred_labels_(step)_",step,"_(batch)_",r,".pdf")
             pdf(file=f)
             plot(X_tsne$Y[,1],X_tsne$Y[,2],col = col_palette[1*(as.numeric(factor(Class)))],  main=paste("t-SNE of X (true labels) step", step," batch ",r));
             dev.off();
@@ -525,7 +525,7 @@ IMM.MCMC <- function(r){
         
         
         #x11();
-        f <- paste0(getwd(),"/output/plots/Inferred_labels/inferred_labels_(batch)_",r,".pdf")
+        f <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/inferred_labels_(batch)_",r,".pdf")
         pdf(file=f)
         
         plot(X_tsne$Y[,1],X_tsne$Y[,2],col = col_palette[1*(as.numeric(factor(Class)))],   main=paste("t-SNE of X (inferred labels) batch ",r));
@@ -533,7 +533,7 @@ IMM.MCMC <- function(r){
         
         ##plot inferred alphas
         #x11();
-        g <- paste0(getwd(),"/output/plots/Inferred_alphas_betas/alpha_beta_(batch)_",r,".pdf")
+        g <- paste0(getwd(),"/",output_folder_name,"/plots/Inferred_alphas_betas/alpha_beta_(batch)_",r,".pdf")
         pdf(file=g)
         par(mfrow=c(4,1));
         
