@@ -114,19 +114,19 @@ col_palette <- col_vector[1:num_col]; # or sample if you wish
 
 ###output directory creation
 
-if( dir.exists(paste0(getwd(),"/output"))){
-    file.rename(paste0(getwd(),"/output/"),paste0(getwd(),"/",output_folder_rename,"/"))
+if( dir.exists(paste0(getwd(),"/", output_folder_name))){
+    file.rename(paste0(getwd(),"/", output_folder_name),paste0(getwd(),"/","BISCUIT_previous_run","/"))
 }
 
-if(! dir.exists(paste0(getwd(),"/output"))){
-    dir.create(paste0(getwd(),"/output/"))
-    dir.create(paste0(getwd(),"/output/plots/"))
-    dir.create(paste0(getwd(),"/output/plots/Inferred_labels/"))
-    dir.create(paste0(getwd(),"/output/plots/Inferred_labels_per_step_per_batch/"))
-    dir.create(paste0(getwd(),"/output/plots/Inferred_alphas_betas/"))
-    dir.create(paste0(getwd(),"/output/plots/Inferred_Sigmas/"))
-    dir.create(paste0(getwd(),"/output/plots/Inferred_means/"))
-    dir.create(paste0(getwd(),"/output/plots/extras/"))
+if(! dir.exists(paste0(getwd(),"/",output_folder_name))){
+     dir.create(paste0(getwd(),"/",output_folder_name,"/"))
+     dir.create(paste0(getwd(),"/",output_folder_name,"/plots/"))
+     dir.create(paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels/"))
+     dir.create(paste0(getwd(),"/",output_folder_name,"/plots/Inferred_labels_per_step_per_batch/"))
+     dir.create(paste0(getwd(),"/",output_folder_name,"/plots/Inferred_alphas_betas/"))
+     dir.create(paste0(getwd(),"/",output_folder_name,"/plots/Inferred_Sigmas/"))
+     dir.create(paste0(getwd(),"/",output_folder_name,"/plots/Inferred_means/"))
+     dir.create(paste0(getwd(),"/",output_folder_name,"/plots/extras/"))
 }
 
 ############## Run BISCUIT ##############
