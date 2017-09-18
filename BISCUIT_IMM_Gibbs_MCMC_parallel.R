@@ -131,7 +131,7 @@ IMM.MCMC <- function(r){
         
         
         path <- working_path;
-        Rprof(filename = paste(path,"Rprof.out",sep=""), append = FALSE, interval = 0.02, memory.profiling=TRUE)
+        Rprof(filename = paste(path,"/Rprof.out",sep=""), append = FALSE, interval = 0.02, memory.profiling=TRUE)
         
         #choose the dimension of the model
         d <- dim(X)[2];
