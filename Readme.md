@@ -26,8 +26,8 @@ Until here, this is a one-time activity.
 >rm(list=ls());
 >graphics.off()
 3. Issue setwd() to point to the path where the code repository resides. 
-eg. if the code is downloaded at “/User/Downloads/BISCUIT/“, then type
->working_path <- "/Users/Downloads/BISCUIT/“; 
+eg. if the code is downloaded at “/User/Downloads/BISCUIT/", then type
+>working_path <- "/Users/Downloads/BISCUIT/"; 
 >setwd(working_path);
 
 4. In start_file.R:
