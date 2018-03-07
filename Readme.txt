@@ -88,6 +88,9 @@ total_clusters ## total inferred clusters
 ~/output/plots/Inferred_alphas_betas/Final_betas.csv (Inferred beta values)
 ~/output/plots/extras/Imputed_Y_countspace.txt (Imputed data in count space)
 ~/output/plots/extras/Imputed_Y_logspace.txt (Imputed data in log space)
+~/output/plots/extras/Input_parms_used.txt 
+~/output/plots/extras/Output_values.txt (total number of clusters, cluster proportions)
+~/output/plots/extras/cluster_posterior_probabilities.csv (posterior probabilities of every cell to every inferred cluster)
 
 Opening an issue/contacting the developers
 ---------------------
