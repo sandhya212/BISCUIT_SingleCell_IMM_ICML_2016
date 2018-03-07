@@ -53,7 +53,7 @@ https://storage.googleapis.com/linnarsson-lab-www-blobs/blobs/cortex/expression_
 
 	j. num_cells_batch: required to split the data in feasible sets for parallel processing the confusion matrix. Set this to 1000 if input number of cells is in the 1000s, else set it to 100.
 
-	k. alpha: DPMM dispersion parameter. A higher value spins more clusters whereas a lower value spins lesser clusters. For the Zeisel et al. data, alpha can be set to a value < 0.005.
+	k. alpha: DPMM dispersion parameter. A higher value spins more clusters whereas a lower value spins lesser clusters. For the Zeisel et al. data, alpha = 0.005 or less.
 
 	l. output_folder_rename:  #give a prefix to rename your existing /output/ folder, if any.
 
